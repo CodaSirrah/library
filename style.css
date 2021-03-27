@@ -2,6 +2,9 @@
     box-sizing: border-box;
     font-family: 'Della Respira', serif;
 }
+*:focus {
+    outline: 0;
+}
 
 html {
     height: 100%;
@@ -13,29 +16,6 @@ h1 {
 }
 
 
-
-#gridContainer {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    background-color: lightblue;
-    height: 80vh;
-    width: 80vw;
-    margin-left: 10vw;
-}
-
-.bookCard {
-    height: 40%;
-    display: flex;
-    justify-content: center;
-    background-color: white;
-    border: 2px solid black;
-    margin: 5%  
-}
-
-.itemSpacing {
-    margin: 10px;
-}
-
 footer {
     position: fixed;
     bottom: 0;
@@ -43,13 +23,19 @@ footer {
     width: 100%;
 }
 
-#newForm {
+#addBookBtn {
     font-size: 40px;
     margin-bottom: 10px;
     border-radius: 20px;
 }
 
-#newForm:hover{
+/* #addBookBtn:hover{
+    border: 2px solid black;
+    cursor: pointer;
+    background-color: rgba(101, 191, 230, 1);
+} */
+
+.hoverHighlight {
     border: 2px solid black;
     cursor: pointer;
     background-color: rgba(101, 191, 230, 1);
@@ -118,8 +104,6 @@ hr {
     height: 20px;
 }
 
-
-
 input {
     height: 3vh;
     font-family: 'Bebas Neue', cursive;
@@ -149,8 +133,53 @@ input {
       visibility: hidden;
   }
 
+  #gridContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 33.3%);
+    grid-template-rows: repeat(2, 1fr);
+    
+    height: 80vh;
+    width: 80vw;
+    margin-left: 10vw;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
 
-.readButton {
-    height: 40px;
-    width: 50px;
+.bookCard {
+    height: 300px;
+    background-color: white;
+    border: 2px solid black;
+    margin: 5%  
+}
+
+
+
+.cardTitle {
+    font-size: 20px;
+    position: relative;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.cardAuthor {
+    font-size: 15px;
+    position: relative;
+}
+
+.cardPages {
+    position: relative;
+}
+
+.cardRead {
+    position: relative;
+    bottom:0
+    
+}
+
+.itemSpacing {
+    margin: 10px;
+}
+
+.bookRead {
+    background-color: #52c76b;
 }

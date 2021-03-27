@@ -1,6 +1,6 @@
 let gridContainer = document.querySelector("#gridContainer");
 let myLibrary = [];
-let btnNewBook = document.querySelector("#newForm");
+let addBookBtn = document.querySelector("#addBookBtn    ");
 let bookForm = document.getElementById("newBookForm");
 let form = document.getElementById("formContainer");
 let titleField = document.getElementById("titleField");
@@ -10,7 +10,7 @@ let authorFieldLabel = document.getElementById("authorFieldLabel");
 let pagesField = document.getElementById("pagesField");
 let pagesFieldLabel = document.getElementById("pagesFieldLabel");
 let submitBtn = document.querySelector("#submit");
-let read = document.querySelector("#read");
+let readCheckBox = document.querySelector("#read");
 
 
 // Object Constructor
@@ -23,6 +23,7 @@ function Book(title, author, pages, read) {
 
 addBookToLibrary("Empire of Silver", "Conn Iggulden", 573, true);
 addBookToLibrary("Colorless Tsukuru Tazaki and his Years of Pilgrimage", "Haruki Murakami", 613, true);
+addBookToLibrary("Heroes", "Stephen Fry", 411, false);
 
 function displayCurrentBooks() {
     for (i = 0; i < myLibrary.length; i++) {
@@ -34,8 +35,8 @@ function displayCurrentBooks() {
     
         // write information.
         createTitle.innerHTML = myLibrary[i].title;
-        createAuthor.innerHTML = myLibrary[i].author;
-        createPages.innerHTML = myLibrary[i].pages;
+        createAuthor.innerHTML = "Author: " + myLibrary[i].author;
+        createPages.innerHTML = "Pages: " + myLibrary[i].pages;
         createRead.innerHTML = "Read?";
     
         // styling.
@@ -44,7 +45,17 @@ function displayCurrentBooks() {
         createAuthor.classList.add("itemSpacing")
         createPages.classList.add("itemSpacing")
         createRead.classList.add("itemSpacing");
-        createRead.classList.add("readButton");
+        if (myLibrary[i].read === true) 
+            createCard.classList.add("bookRead");
+        
+
+        createTitle.classList.add("cardTitle");
+        createAuthor.classList.add("cardAuthor");
+        createPages.classList.add("cardPages");
+        createRead.classList.add("cardRead");
+
+       
+
         
         // appending.
         createCard.appendChild(createTitle);
@@ -77,17 +88,19 @@ function displayBooks() {
 
     // write information.
     createTitle.innerHTML = lastBook.title;
-    createAuthor.innerHTML = lastBook.author;
-    createPages.innerHTML = lastBook.pages;
+    createAuthor.innerHTML = "Author: " + lastBook.author;
+    createPages.innerHTML = "Pages: " + lastBook.pages;
     createRead.innerHTML = "Read?";
 
+
+    
     // styling.
     createCard.classList.add("bookCard");
     createTitle.classList.add("itemSpacing")
     createAuthor.classList.add("itemSpacing")
     createPages.classList.add("itemSpacing")
     createRead.classList.add("itemSpacing");
-    createRead.classList.add("readButton");
+    createRead.classList.add("cardRead");
     
     // appending.
     createCard.appendChild(createTitle);
@@ -104,7 +117,7 @@ function toggleForm() {
     form.classList.toggle("formIn");
     }
 
-btnNewBook.addEventListener("click", () => {
+addBookBtn.addEventListener("click", () => {
     toggleForm();
 })
 
@@ -143,7 +156,7 @@ function newBook() {
 let titleData = titleField.value;
 let authorData = authorField.value;
 let pagesData = parseInt(pagesField.value);
-let readData = read.value;
+let readData = readCheckBox.value;
 return addBookToLibrary(titleData, authorData, pagesData, readData);
 }; 
 
@@ -151,8 +164,28 @@ function resetForm() {
     titleField.value = "";
     authorField.value = "";
     pagesField.value = "";
-    read.value = false;
+    readCheckBox.value = false;
     titleFieldLabel.classList.remove("hideLabel");
     authorFieldLabel.classList.remove("hideLabel");
     pagesFieldLabel.classList.remove("hideLabel");
 }
+
+document.querySelectorAll("button").forEach(item => {
+    item.addEventListener("mouseenter", () => {
+        item.style.cssText = "background-color: rgba(101, 191, 230, 1); cursor: pointer; border: 2px solid black;"
+    })
+
+});
+
+document.querySelectorAll("button").forEach(item => {
+    item.addEventListener("mouseleave", () => {
+        item.style.cssText = "";
+    })
+
+});
+
+document.querySelectorAll(".cardRead").forEach(item => {
+    item.addEventListener("click", () => {
+        item.parentElement.classList.toggle("bookRead");
+    })
+});
