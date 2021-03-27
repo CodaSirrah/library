@@ -1,0 +1,156 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Della Respira', serif;
+}
+
+html {
+    height: 100%;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+#gridContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background-color: lightblue;
+    height: 80vh;
+    width: 80vw;
+    margin-left: 10vw;
+}
+
+.bookCard {
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    border: 2px solid black;
+    margin: 5%  
+}
+
+.itemSpacing {
+    margin: 10px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+}
+
+#newForm {
+    font-size: 40px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+}
+
+#newForm:hover{
+    border: 2px solid black;
+    cursor: pointer;
+    background-color: rgba(101, 191, 230, 1);
+}
+
+hr {
+    height: 1px;
+    width: 400px;
+    background-color:red;
+}
+
+.titles {
+    position: relative;
+    background-color: black;
+    border: 2px solid grey;
+}
+
+.title {
+    position: absolute;
+    color: white;
+    bottom: 50;
+}
+
+
+#formContainer {
+    position: absolute;
+    top: 50%;  /* position the top  edge of the element at the middle of the parent */
+    left: 50%; /* position the left edge of the element at the middle of the parent */
+    transform: translate(-50%, -50%);
+    background-color: rgba(101, 191, 230, 1);
+    border: 3px solid black;
+    border-radius: 15px;
+}
+
+
+.labelContainers {
+    display: flex;
+    justify-content: center;
+    border: solid 1px #ccc;
+    position: relative;
+    width: fit-content;
+    margin: 50px;
+}
+
+.textLabel {
+    position: absolute;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 3vh;
+    color: rgba(140, 126, 125, 1);
+    left: 0;
+    width: 5vw;
+    
+  }
+
+#readLabel {
+    position: relative;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 3vh;
+    color: rgba(140, 126, 125, 1);
+    left: 40%;
+}
+
+#read {
+    position: relative;
+    left: 40%;
+    height: 20px;
+}
+
+
+
+input {
+    height: 3vh;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 3vh;
+    
+  } 
+
+#submitContainer {
+    position: relative;
+    width: fit-content;
+    margin-top: 3vh;
+    left:39%;
+
+}
+
+#submit {
+    color:rgba(250, 126, 125, 1);
+    padding-bottom: 30px;
+    margin-bottom: 0.5vh;
+}
+
+.hideLabel {
+      color: transparent;
+  }
+
+  .hidden {
+      visibility: hidden;
+  }
+
+
+.readButton {
+    height: 40px;
+    width: 50px;
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Della+Respira&display=swap" rel="stylesheet">
+        <title>My Library</title>
+    </head>
+    <body>
+        <h1>Welcome to the Library.</h1><hr>
+        <div id ="flexContainer">
+            <div id="gridContainer"></div>
+        </div>
+        <div id="formContainer" class="hidden">
+            <form id="newBookForm" action="">
+                <div class="labelContainers">
+                    <label class="textLabel" id="titleFieldLabel" for="titleField">Title</label>
+                    <input type="text" id ="titleField" name="titleField" autocomplete="off" required>
+                </div>
+                <div class="labelContainers">
+                    <label class="textLabel" id="authorFieldLabel" for="authorField">Author</label>
+                    <input type="text" id="authorField" name="authorField" autocomplete="off" required>
+                </div>
+                <div class="labelContainers">
+                    <label class="textLabel" id="pagesFieldLabel" for="pagesField">Pages</label>
+                    <input type="number" id="pagesField" name="pagesField" autocomplete="off" min="1" required>
+                </div>
+                <label id="readLabel" for="read">Read?</label>
+                <input type="checkbox" id="read" name="read">
+                <div id="submitContainer">
+                    <input id="submit" type="submit" va\lue="submit"></input>
+                </div>
+            </form>
+    </div>
+        <footer><button id="newForm">Add Book</button></footer>
+        <script src="books.js"></script>
+    </body>
+</html>
