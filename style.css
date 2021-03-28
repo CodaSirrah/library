@@ -29,18 +29,6 @@ footer {
     border-radius: 20px;
 }
 
-/* #addBookBtn:hover{
-    border: 2px solid black;
-    cursor: pointer;
-    background-color: rgba(101, 191, 230, 1);
-} */
-
-.hoverHighlight {
-    border: 2px solid black;
-    cursor: pointer;
-    background-color: rgba(101, 191, 230, 1);
-}
-
 hr {
     height: 1px;
     width: 400px;
@@ -82,7 +70,7 @@ hr {
 
 .textLabel {
     position: absolute;
-    font-family: 'Bebas Neue', cursive;
+    font-family: cursive;
     font-size: 3vh;
     color: rgba(140, 126, 125, 1);
     left: 0;
