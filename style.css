@@ -8,11 +8,15 @@
 
 html {
     height: 100%;
+    background-image: url(Pictures/wallhaven-4yg8qg_1920x1080.png);
 }
 
 h1 {
     display: flex;
     justify-content: center;
+    color: #a83d0f;
+    border: 1px solid black;
+    font-size: 35px;
 }
 
 
@@ -27,12 +31,7 @@ footer {
     font-size: 40px;
     margin-bottom: 10px;
     border-radius: 20px;
-}
-
-hr {
-    height: 1px;
-    width: 400px;
-    background-color:red;
+    font-family:  serif;
 }
 
 .titles {
@@ -52,7 +51,7 @@ hr {
     position: absolute;
     top: 50%;  /* position the top  edge of the element at the middle of the parent */
     left: 50%; /* position the left edge of the element at the middle of the parent */
-    transform: translate(-50%, -50%);
+    transform: translate(-48.5%, -50%);
     background-color: rgba(101, 191, 230, 1);
     border: 3px solid black;
     border-radius: 15px;
@@ -135,9 +134,9 @@ input {
 
 .bookCard {
     height: 300px;
-    background-color: white;
+    background-color: #a83d0f;
     border: 2px solid black;
-    margin: 5%  
+    margin: 5%;
 }
 
 
@@ -147,21 +146,35 @@ input {
     position: relative;
     padding-bottom: 20px;
     text-align: center;
+    height: 90px;
+    text-decoration: underline;
 }
 
 .cardAuthor {
     font-size: 15px;
     position: relative;
+    height: 25px;
+    font-size: 17px;
 }
 
 .cardPages {
     position: relative;
+    height: 25px;
+    font-size: 17px;
 }
 
 .cardRead {
     position: relative;
-    bottom:0
-    
+    top: 50px;
+    font-family: serif;
+    font-size: 20px;
+}
+
+.cardRemove {
+    position: relative;
+    top: 50px;
+    font-family: serif;
+    font-size: 20px;
 }
 
 .itemSpacing {
@@ -171,3 +184,35 @@ input {
 .bookRead {
     background-color: #52c76b;
 }
+
+
+.buttonsContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.readAnimation {
+    animation: upDown 0.5s linear;
+}
+
+.addBookAnimation {
+    animation: upDown 0.5s linear;
+}
+
+@keyframes upDown {
+    0% {
+        transform: translateY(0%);
+    }
+
+    33% {
+        transform: translateY(-30%);
+    }
+
+    66% {
+        transform: translateY(-50%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+

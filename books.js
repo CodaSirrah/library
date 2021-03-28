@@ -35,12 +35,16 @@ function displayCurrentBooks() {
         let createAuthor = document.createElement("p");
         let createPages = document.createElement("p");
         let createRead = document.createElement("button");
+        let createRemove = document.createElement("button");
+        let buttonsContainer = document.createElement("div");
         // write information.
         createTitle.innerHTML = myLibrary[i].title;
         createAuthor.innerHTML = "Author: " + myLibrary[i].author;
         createPages.innerHTML = "Pages: " + myLibrary[i].pages;
         createRead.innerHTML = "Read?";
+        createRemove.innerHTML = "Remove";
 
+        createRemove.setAttribute("data-index", i);
         createRead.setAttribute("data-index", i);
         
         // styling.
@@ -52,13 +56,18 @@ function displayCurrentBooks() {
         createTitle.classList.add("cardTitle");
         createAuthor.classList.add("cardAuthor");
         createPages.classList.add("cardPages");
+        createRemove.classList.add("cardRemove");
+        createRemove.classList.add("itemSpacing");
         createRead.classList.add("cardRead");
+        buttonsContainer.classList.add("buttonsContainer");
         if (myLibrary[i].read === "true" || myLibrary[i].read === "on")  createCard.classList.add("bookRead");
         // appending.
         createCard.appendChild(createTitle);
         createCard.appendChild(createAuthor);
         createCard.appendChild(createPages);
-        createCard.appendChild(createRead);
+        buttonsContainer.appendChild(createRead);
+        buttonsContainer.appendChild(createRemove);
+        createCard.appendChild(buttonsContainer);
         // adding to document.
         gridContainer.appendChild(createCard);
     }
@@ -81,11 +90,16 @@ function displayNewBook() {
     let createAuthor = document.createElement("p");
     let createPages = document.createElement("p");
     let createRead = document.createElement("button");
+    let createRemove = document.createElement("button");
+    let buttonsContainer = document.createElement("div");
     // write information.
     createTitle.innerHTML = lastBook.title;
     createAuthor.innerHTML = "Author: " + lastBook.author;
     createPages.innerHTML = "Pages: " + lastBook.pages;
     createRead.innerHTML = "Read?";
+    createRemove.innerHTML = "Remove";
+    createRead.setAttribute("data-index", myLibrary.length - 1);
+    createRemove.setAttribute("data-index", myLibrary.length - 1);
 
     // styling.
     createCard.classList.add("bookCard");
@@ -93,14 +107,20 @@ function displayNewBook() {
     createAuthor.classList.add("itemSpacing")
     createPages.classList.add("itemSpacing")
     createRead.classList.add("itemSpacing");
+    createTitle.classList.add("cardTitle");
+    createAuthor.classList.add("cardAuthor");
     createRead.classList.add("cardRead");
+    createRemove.classList.add("cardRemove");
+    createRemove.classList.add("itemSpacing");
+    buttonsContainer.classList.add("buttonsContainer");
     if (lastBook.read === "true" || lastBook.read === "on") createCard.classList.add("bookRead");
-
     // appending.
     createCard.appendChild(createTitle);    
     createCard.appendChild(createAuthor);
     createCard.appendChild(createPages);
-    createCard.appendChild(createRead);
+    buttonsContainer.appendChild(createRead);
+    buttonsContainer.appendChild(createRemove);
+    createCard.appendChild(buttonsContainer);
 
     // adding to document.
     gridContainer.appendChild(createCard);
@@ -113,9 +133,28 @@ function displayNewBook() {
         createRead.style.cssText = "";
     });
 
-    createRead.addEventListener("click", () => {
-        createCard.classList.toggle("bookRead");
+    createRemove.addEventListener("mouseenter", () => {
+        createRemove.style.cssText = "background-color: rgba(101, 191, 230, 1); cursor: pointer; border: 2px solid black;"
     });
+
+    createRemove.addEventListener("mouseleave", () => {
+        createRemove.style.cssText = "";
+    });
+
+    createRead.addEventListener("click", () => {
+        if (createRead.parentElement.classList.contains("bookRead")) {
+            myLibrary[createRead.dataset.index].read = "false";
+            createRead.parentElement.parentElement.classList.toggle("bookRead");
+        } else {
+            myLibrary[createRead.dataset.index].read = "true";
+            createRead.parentElement.parentElement.classList.toggle("bookRead");
+        }
+    });
+
+    createRemove.addEventListener("click", () => {
+        myLibrary.splice(createRemove.dataset.index, 1, "empty");
+        createRemove.parentElement.parentElement.remove();
+    })
     
 };
 function toggleForm() {
@@ -124,6 +163,7 @@ function toggleForm() {
     }
 
 addBookBtn.addEventListener("click", () => {
+    addBookBtn.classList.toggle("addBookAnimation");
     toggleForm();
     resetForm();
 })
@@ -152,7 +192,6 @@ form.addEventListener("submit", (e) => {
     newBook();
     resetForm();
     toggleForm();
-    console.log(myLibrary);
     displayNewBook();
 })
 
@@ -189,7 +228,21 @@ document.querySelectorAll("button").forEach(item => {
 });
 document.querySelectorAll(".cardRead").forEach(item => {
     item.addEventListener("click", () => {
-        item.parentElement.classList.toggle("bookRead");
+        item.classList.toggle("readAnimation");
+        if (item.parentElement.parentElement.classList.contains("bookRead")) {
+            myLibrary[item.dataset.index].read = "false";
+            item.parentElement.parentElement.classList.toggle("bookRead");
+        } else {
+            myLibrary[item.dataset.index].read = "true";
+            item.parentElement.parentElement.classList.toggle("bookRead");
+        }     
+    })
+});
+
+document.querySelectorAll(".cardRemove").forEach(item => {
+    item.addEventListener("click", () => {  
+        myLibrary.splice(item.dataset.index, 1, "empty");
+        item.parentElement.parentElement.remove();
     })
 });
 
@@ -200,7 +253,7 @@ document.addEventListener("click", function(e)  {
         if (clickInside === false && clickButton === false && !(form.classList.contains("hidden"))) {
             resetForm();
             toggleForm();
-        
+            addBookBtn.classList.toggle("addBookAnimation");
     }
 });
 
@@ -213,6 +266,4 @@ readCheckBox.addEventListener("click", () => {
     }
 });
 
-Book.prototype.readStatus = function(e) {
-    
-}
+
