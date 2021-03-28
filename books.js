@@ -142,6 +142,7 @@ function displayNewBook() {
     });
 
     createRead.addEventListener("click", () => {
+        createRead.classList.toggle("readAnimation");
         if (createRead.parentElement.classList.contains("bookRead")) {
             myLibrary[createRead.dataset.index].read = "false";
             createRead.parentElement.parentElement.classList.toggle("bookRead");
