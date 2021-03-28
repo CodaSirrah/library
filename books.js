@@ -193,6 +193,7 @@ form.addEventListener("submit", (e) => {
     resetForm();
     toggleForm();
     displayNewBook();
+    addBookBtn.classList.toggle("addBookAnimation");
 })
 
 function newBook() {
