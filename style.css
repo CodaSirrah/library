@@ -216,3 +216,17 @@ input {
     }
 }
 
+@media screen and (max-height: 800px) {
+    #gridContainer {
+        grid-template-columns: repeat(2, 50%);
+        grid-template-rows: repeat(2, 1fr);
+        height: 80vh;
+        width: 80vw;
+        overflow-x: unset;
+        overflow-y: unset;
+    }
+    html {
+        background-image: none;
+        background-color: white;
+    }
+};

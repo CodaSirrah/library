@@ -12,7 +12,7 @@ let pagesFieldLabel = document.getElementById("pagesFieldLabel");
 let submitBtn = document.querySelector("#submit");
 let readCheckBox = document.querySelector("#read");
 let htmlArea = document.querySelector("html");
-
+let myLibraryClone;
 
 // Object Constructor
 function Book(title, author, pages, read) {
@@ -22,14 +22,29 @@ function Book(title, author, pages, read) {
     this.read = read;
 };
 
-// Template books for display before adding local cache
-addBookToLibrary("Empire of Silver", "Conn Iggulden", 573, "true");
-addBookToLibrary("Colorless Tsukuru Tazaki and his Years of Pilgrimage", "Haruki Murakami", 613, "true");
-addBookToLibrary("Heroes", "Stephen Fry", 411, "false");
+// checks if local storage exists. If it does displays the clone.
+
+if(!localStorage.getItem("myBooks")) {
+    console.log("No local storage exists!");
+  } else {
+      myLibrary = JSON.parse(localStorage.getItem("myBooks"));
+      myLibraryClone = myLibrary;
+      console.log(myLibraryClone);
+      cleanClone();
+    displayCurrentBooks();
+  }
+
+// sanitizes a clone copy of library without empty strings.
+function cleanClone() {
+    while (myLibraryClone.includes("empty")) {
+        let x = myLibraryClone.indexOf("empty")
+        myLibraryClone.splice(x, 1);
+    }
+}
 
 // loops over MyLibrary objects to display each book. Creates a card and information based on each objects key values.
-function displayCurrentBooks() {
-    for (i = 0; i < myLibrary.length; i++) {
+function displayCurrentBooks() {  
+    for (i = 0; i < myLibraryClone.length; i++) {
         let createCard = document.createElement("section");
         let createTitle = document.createElement("h4");
         let createAuthor = document.createElement("p");
@@ -38,9 +53,9 @@ function displayCurrentBooks() {
         let createRemove = document.createElement("button");
         let buttonsContainer = document.createElement("div");
         // write information.
-        createTitle.innerHTML = myLibrary[i].title;
-        createAuthor.innerHTML = "Author: " + myLibrary[i].author;
-        createPages.innerHTML = "Pages: " + myLibrary[i].pages;
+        createTitle.innerHTML = myLibraryClone[i].title;
+        createAuthor.innerHTML = "Author: " + myLibraryClone[i].author;
+        createPages.innerHTML = "Pages: " + myLibraryClone[i].pages;
         createRead.innerHTML = "Read?";
         createRemove.innerHTML = "Remove";
 
@@ -60,7 +75,7 @@ function displayCurrentBooks() {
         createRemove.classList.add("itemSpacing");
         createRead.classList.add("cardRead");
         buttonsContainer.classList.add("buttonsContainer");
-        if (myLibrary[i].read === "true" || myLibrary[i].read === "on")  createCard.classList.add("bookRead");
+        if (myLibraryClone[i].read === "true" || myLibraryClone[i].read === "on")  createCard.classList.add("bookRead");
         // appending.
         createCard.appendChild(createTitle);
         createCard.appendChild(createAuthor);
@@ -73,11 +88,10 @@ function displayCurrentBooks() {
     }
 }
 
-displayCurrentBooks();
-
 // pushes new book from constructor into myLibrary array.
 function addBookToLibrary(title, author, pages, read) {
     myLibrary.push(new Book(title, author, pages, read)); 
+    storeLibrary();
 };
 
 // create a card and information based on forms input values. Add to myLibrary array.
@@ -110,6 +124,7 @@ function displayNewBook() {
     createTitle.classList.add("cardTitle");
     createAuthor.classList.add("cardAuthor");
     createRead.classList.add("cardRead");
+    createPages.classList.add("cardPages");
     createRemove.classList.add("cardRemove");
     createRemove.classList.add("itemSpacing");
     buttonsContainer.classList.add("buttonsContainer");
@@ -142,19 +157,23 @@ function displayNewBook() {
     });
 
     createRead.addEventListener("click", () => {
-        createRead.classList.toggle("readAnimation");
-        if (createRead.parentElement.classList.contains("bookRead")) {
+        if (myLibrary[createRead.dataset.index].read === "true") {
             myLibrary[createRead.dataset.index].read = "false";
             createRead.parentElement.parentElement.classList.toggle("bookRead");
-        } else {
+            createRead.classList.remove("readAnimation");
+            storeLibrary();
+        } else if (myLibrary[createRead.dataset.index].read === "false") {
             myLibrary[createRead.dataset.index].read = "true";
             createRead.parentElement.parentElement.classList.toggle("bookRead");
+            createRead.classList.add("readAnimation");
+            storeLibrary();
         }
     });
 
     createRemove.addEventListener("click", () => {
         myLibrary.splice(createRemove.dataset.index, 1, "empty");
         createRemove.parentElement.parentElement.remove();
+        storeLibrary();
     })
     
 };
@@ -230,13 +249,17 @@ document.querySelectorAll("button").forEach(item => {
 });
 document.querySelectorAll(".cardRead").forEach(item => {
     item.addEventListener("click", () => {
-        item.classList.toggle("readAnimation");
+        
         if (item.parentElement.parentElement.classList.contains("bookRead")) {
             myLibrary[item.dataset.index].read = "false";
             item.parentElement.parentElement.classList.toggle("bookRead");
+            item.classList.remove("readAnimation");
+            storeLibrary()
         } else {
             myLibrary[item.dataset.index].read = "true";
             item.parentElement.parentElement.classList.toggle("bookRead");
+            item.classList.add("readAnimation");
+            storeLibrary()
         }     
     })
 });
@@ -245,6 +268,7 @@ document.querySelectorAll(".cardRemove").forEach(item => {
     item.addEventListener("click", () => {  
         myLibrary.splice(item.dataset.index, 1, "empty");
         item.parentElement.parentElement.remove();
+        storeLibrary()
     })
 });
 
@@ -268,4 +292,7 @@ readCheckBox.addEventListener("click", () => {
     }
 });
 
-
+// storage
+function storeLibrary() {
+    localStorage.setItem("myBooks", JSON.stringify(myLibrary));
+}
