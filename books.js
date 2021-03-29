@@ -25,11 +25,13 @@ function Book(title, author, pages, read) {
 // checks if local storage exists. If it does displays the clone.
 
 if(!localStorage.getItem("myBooks")) {
-    console.log("No local storage exists!");
+    addBookToLibrary("Empire of Silver", "Conn Iggulden", 464, "true");
+    addBookToLibrary("Colorless Tsukuru Tazaki and His Years of Pilgrimage", "Haruki Murakami", 304, "true");
+    addBookToLibrary("Heroes", "Stephen Fry", 496, "false");
+    addBookToLibrary("The Prophet", "Kahlil Gibran", 76, "true");
   } else {
       myLibrary = JSON.parse(localStorage.getItem("myBooks"));
       myLibraryClone = myLibrary;
-      console.log(myLibraryClone);
       cleanClone();
     displayCurrentBooks();
   }
