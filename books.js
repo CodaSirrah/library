@@ -15,11 +15,13 @@ let htmlArea = document.querySelector("html");
 let myLibraryClone;
 
 // Object Constructor
-function Book(title, author, pages, read) {
+class Book {
+    constructor(title, author, pages, read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
+    }
 };
 
 // checks if local storage exists. If it does displays the clone.
@@ -162,12 +164,10 @@ function displayNewBook() {
         if (myLibrary[createRead.dataset.index].read === "true") {
             myLibrary[createRead.dataset.index].read = "false";
             createRead.parentElement.parentElement.classList.toggle("bookRead");
-            createRead.classList.remove("readAnimation");
             storeLibrary();
         } else if (myLibrary[createRead.dataset.index].read === "false") {
             myLibrary[createRead.dataset.index].read = "true";
             createRead.parentElement.parentElement.classList.toggle("bookRead");
-            createRead.classList.add("readAnimation");
             storeLibrary();
         }
     });
@@ -181,7 +181,6 @@ function displayNewBook() {
 };
 function toggleForm() {
     form.classList.toggle("hidden");
-    form.classList.toggle("formIn");
     }
 
 addBookBtn.addEventListener("click", () => {
@@ -236,6 +235,7 @@ function resetForm() {
     titleFieldLabel.classList.remove("hideLabel");
     authorFieldLabel.classList.remove("hideLabel");
     pagesFieldLabel.classList.remove("hideLabel");
+    form.classList.remove("formFadeIn");
 };
 
 document.querySelectorAll("button").forEach(item => {
@@ -255,12 +255,10 @@ document.querySelectorAll(".cardRead").forEach(item => {
         if (item.parentElement.parentElement.classList.contains("bookRead")) {
             myLibrary[item.dataset.index].read = "false";
             item.parentElement.parentElement.classList.toggle("bookRead");
-            item.classList.remove("readAnimation");
             storeLibrary()
         } else {
             myLibrary[item.dataset.index].read = "true";
             item.parentElement.parentElement.classList.toggle("bookRead");
-            item.classList.add("readAnimation");
             storeLibrary()
         }     
     })

@@ -8,15 +8,15 @@
 
 html {
     height: 100%;
-    background-image: url(Pictures/wallhaven-4yg8qg_1920x1080.png);
+    background-color: #62c496;
 }
 
 h1 {
-    display: flex;
-    justify-content: center;
-    color: #a83d0f;
-    border: 1px solid black;
+    text-align: center;
+    color: #c46f62;
+    border-radius: 2px;
     font-size: 35px;
+    background-color: white;
 }
 
 
@@ -48,15 +48,14 @@ footer {
 
 
 #formContainer {
-    position: absolute;
-    top: 50%;  /* position the top  edge of the element at the middle of the parent */
-    left: 50%; /* position the left edge of the element at the middle of the parent */
+    position: fixed;
+    top: 50%;  
+    left: 50%;
     transform: translate(-48.5%, -50%);
     background-color: rgba(101, 191, 230, 1);
     border: 3px solid black;
     border-radius: 15px;
 }
-
 
 .labelContainers {
     display: flex;
@@ -134,7 +133,7 @@ input {
 
 .bookCard {
     height: 300px;
-    background-color: #a83d0f;
+    background-color: #c46f62;
     border: 2px solid black;
     margin: 5%;
 }
@@ -191,12 +190,8 @@ input {
     justify-content: center;
 }
 
-.readAnimation {
-    animation: upDown 0.5s linear;
-}
-
 .addBookAnimation {
-    animation: upDown 0.5s linear;
+    animation: enlarge 0.5s linear forwards;
 }
 
 @keyframes upDown {
@@ -216,6 +211,21 @@ input {
     }
 }
 
+@keyframes enlarge {
+    0% {
+        transform: scale(1);
+    }
+    33.3% {
+        transform: scale(1..05);
+    }
+    66.7% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1.2);
+    }
+}
+
 @media screen and (max-height: 800px) {
     #gridContainer {
         grid-template-columns: repeat(2, 50%);
@@ -225,8 +235,33 @@ input {
         overflow-x: unset;
         overflow-y: unset;
     }
-    html {
-        background-image: none;
-        background-color: white;
+}
+
+@media screen and (max-width: 800px) {
+    #gridContainer {
+        grid-template-columns: repeat(2, 50%);
+        grid-template-rows: repeat(2, 1fr);
+        height: 80vh;
+        width: 80vw;
+        overflow-x: unset;
+        overflow-y: unset;
+    }
+    .cardTitle {
+        font-size: 15px;
+    }
+
+    .cardRead {
+        font-size: 15px;
+        top: 0px;
+    }
+
+    .cardRemove {
+        font-size: 15px;
+        top: 0px;
+    }
+
+    .cardPages {
+        margin-top: 40px;
     }
 };
+
